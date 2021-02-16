@@ -1,27 +1,32 @@
 const express = require("express");
 const cors = require("cors");
 const {join} = require("path");
-const listEndPoints = require("express-list-endpoints");
-const usersRoute = require("./src/routes/users");
-const registerRoute = require("./src/routes/register");
+const listEndpoints = require("express-list-endpoints");
+const usersRoute = require("./routes/users");
+const registerRoute = require("./routes/register");
 const mongoose = require("mongoose");
-const cors = require("cors");
 const {
     notFoundHandler,
     forbiddenHandler,
     badRequestHandler,
     genericErrorHandler,
-  } = require("./src/lib/utils/errorHandlers")
+  } = require("./lib/utils/errorHandlers")
 
 
 //Initial Set-up
 const server = express();
 const port = process.env.PORT || 3003;
+const staticFolderPath = join(__dirname, "../public")
+server.use(express.static(staticFolderPath))
+
 
 //Middlewares
 server.use(cors());
 server.use(express.json());
 
+//ROUTES
+server.use("/users", usersRoute)
+server.use("/register", registerRoute)
 
 //ERROR HANDLERS
 server.use(badRequestHandler)

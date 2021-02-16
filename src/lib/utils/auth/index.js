@@ -1,4 +1,4 @@
-const UserModel = require("./users/schema");
+const UserModel = require("../../../models/usersSchema");
 const atob = require("atob");
 
 const basicAuthMiddleware = async (req, res, next) => {
