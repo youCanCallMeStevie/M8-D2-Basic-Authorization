@@ -29,9 +29,9 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-UserSchema.statics.findByCredentials = async function (email, password) { //static is for the whole collection, method is for a specific document
+UserSchema.statics.findByCredentials = async function (username, password) { //static is for the whole collection, method is for a specific document
   //creating a custom "mongoose method" to reuse
-  const user = await this.findOne({ email }); //this = this schema
+  const user = await this.findOne({ username }); //this = this schema
 
   if (user) {
     const isMatch = await bcrypt.compare(password, user.password);
